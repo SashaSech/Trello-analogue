@@ -15,6 +15,15 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>
+                        Профиль
+                    </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="key" :href="route('user-password.edit')" :current="request()->routeIs('user-password.edit')" wire:navigate>
+                        Смена пароля
+                    </flux:sidebar.item>
+
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
@@ -65,8 +74,11 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                            {{ __('Settings') }}
+                        <flux:menu.item :href="route('profile.edit')" icon="user" wire:navigate>
+                            Профиль пользователя
+                        </flux:menu.item>
+                        <flux:menu.item :href="route('user-password.edit')" icon="key" wire:navigate>
+                            Смена пароля
                         </flux:menu.item>
                     </flux:menu.radio.group>
 
