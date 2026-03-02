@@ -11,17 +11,17 @@
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
+                <flux:sidebar.group class="grid">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
 
                     <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>
-                        Профиль
+                        Profile
                     </flux:sidebar.item>
 
                     <flux:sidebar.item icon="key" :href="route('user-password.edit')" :current="request()->routeIs('user-password.edit')" wire:navigate>
-                        Смена пароля
+                        Change password
                     </flux:sidebar.item>
 
                 </flux:sidebar.group>
@@ -30,13 +30,6 @@
             <flux:spacer />
 
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
             </flux:sidebar.nav>
 
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
@@ -75,10 +68,10 @@
 
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('profile.edit')" icon="user" wire:navigate>
-                            Профиль пользователя
+                            User Profile
                         </flux:menu.item>
                         <flux:menu.item :href="route('user-password.edit')" icon="key" wire:navigate>
-                            Смена пароля
+                            Change password
                         </flux:menu.item>
                     </flux:menu.radio.group>
 

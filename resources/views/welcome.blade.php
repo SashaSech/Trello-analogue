@@ -28,21 +28,21 @@
                             href="{{ url('/dashboard') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
                         >
-                            Главная
+                            Dashboard
                         </a>
                     @else
                         <a
                             href="{{ route('login') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
                         >
-                            Войти
+                            Log in
                         </a>
 
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
                                 class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Зарегистрироваться
+                                Register
                             </a>
                         @endif
                     @endauth
@@ -53,7 +53,6 @@
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
                 <div class="text-[20px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-es-lg rounded-ee-lg lg:rounded-ss-lg lg:rounded-ee-none">
                     <h1 class="mb-1 font-medium"><b>Trello analogue</b></h1>
-                    <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Это полноценный аналог Trello,<br>но выполненный на Laravel и Livewire.</p>
                 </div>
                 <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ms-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-e-lg! aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
                     <img
