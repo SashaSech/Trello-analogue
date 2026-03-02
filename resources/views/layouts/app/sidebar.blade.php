@@ -24,6 +24,14 @@
                         Change password
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item
+                        icon="layout-grid"
+                        :href="route('projects.index')"
+                        :current="request()->routeIs('projects.index')"
+                        wire:navigate
+                    >
+                        Projects
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
