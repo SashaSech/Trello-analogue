@@ -3,9 +3,9 @@
 
     <flux:heading class="sr-only">{{ __('Profile Settings') }}</flux:heading>
 
-    <x-settings.layout :heading="__('Профиль пользователя')" :subheading="__('Изменить логин и email')">
+    <x-settings.layout :heading="__('User Profile')" :subheading="__('Update your name and email address')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
-            <flux:input wire:model="name" :label="__('Логин')" type="text" required autofocus autocomplete="name" />
+            <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 
             <div>
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
@@ -13,16 +13,16 @@
                 @if ($this->hasUnverifiedEmail)
                     <div>
                         <flux:text class="mt-4">
-                            {{ __('Ваш email не верифицирован.') }}
+                            {{ __('Your email address is unverified.') }}
 
                             <flux:link class="text-sm cursor-pointer" wire:click.prevent="resendVerificationNotification">
-                                {{ __('Нажмите здесь, чтобы снова отправить верификационный email.') }}
+                                {{ __('Click here to re-send the verification email.') }}
                             </flux:link>
                         </flux:text>
 
                         @if (session('status') === 'verification-link-sent')
                             <flux:text class="mt-2 font-medium !dark:text-green-400 !text-green-600">
-                                {{ __('Новая ссылка верификации была отправлена на ваш email.') }}
+                                {{ __('A new verification link has been sent to your email address.') }}
                             </flux:text>
                         @endif
                     </div>
