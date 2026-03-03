@@ -37,6 +37,15 @@
                         <flux:button
                             size="xs"
                             variant="ghost"
+                            :href="route('projects.board', $project)"
+                            wire:navigate
+                        >
+                            Board
+                        </flux:button>
+
+                        <flux:button
+                            size="xs"
+                            variant="ghost"
                             wire:click="edit({{ $project->id }})"
                         >
                             Edit
