@@ -12,9 +12,6 @@
 
             <flux:sidebar.nav>
                 <flux:sidebar.group class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
 
                     <flux:sidebar.item icon="user" :href="route('profile.edit')" :current="request()->routeIs('profile.edit')" wire:navigate>
                         Profile
@@ -32,6 +29,16 @@
                     >
                         Projects
                     </flux:sidebar.item>
+
+                    <flux:sidebar.item
+                        icon="arrow-uturn-left"
+                        :href="route('home')"
+                        :current="request()->routeIs('home')"
+                        wire:navigate
+                    >
+                        Go to main screen
+                    </flux:sidebar.item>
+                    
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

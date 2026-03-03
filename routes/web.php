@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Projects\Index as ProjectsIndex;
+use App\Livewire\Tasks\Board as TasksBoard;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,8 +12,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')
         ->name('dashboard');
 
-    Route::livewire('/projects', ProjectsIndex::class)
+    Route::livewire('projects', ProjectsIndex::class)
         ->name('projects.index');
 
-    require __DIR__.'/settings.php';
+    Route::livewire('projects/{project}/board', TasksBoard::class)
+        ->name('projects.board');
+
+    require __DIR__ . '/settings.php';
 });
