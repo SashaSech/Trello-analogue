@@ -60,7 +60,7 @@ class Board extends Component
     public function create(string $status = 'todo'): void
     {
         $this->resetForm($status);
-        $this->status = $status;
+        $this->showForm = true;
     }
 
     public function edit(Task $task): void
