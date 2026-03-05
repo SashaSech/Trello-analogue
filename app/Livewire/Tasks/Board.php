@@ -19,6 +19,8 @@ class Board extends Component
 
     public array $statuses = [];
 
+    public bool $showForm = false;
+
     public function mount(Project $project): void
     {
         $this->project = $project;
@@ -35,6 +37,15 @@ class Board extends Component
         ];
     }
 
+    protected function resetForm(string $status = 'todo'): void
+    {
+        $this->taskId = null;
+        $this->title = '';
+        $this->description = '';
+        $this->status = $status;
+        $this->user_id = null;
+    }
+
     public function getTasksByStatusProperty()
     {
         return $this->project
@@ -48,7 +59,7 @@ class Board extends Component
 
     public function create(string $status = 'todo'): void
     {
-        $this->reset(['taskId', 'title', 'description', 'user_id']);
+        $this->resetForm($status);
         $this->status = $status;
     }
 
@@ -61,6 +72,12 @@ class Board extends Component
         $this->description = $task->description;
         $this->status = $task->status;
         $this->user_id = $task->user_id;
+        $this->showForm = true;
+    }
+
+    public function cancel(): void
+    {
+        $this->showForm = false;
     }
 
     public function save(): void
@@ -82,7 +99,8 @@ class Board extends Component
 
         $this->dispatch('task-saved');
 
-        $this->create($this->status);
+        $this->showForm = false;
+        $this->resetForm($this->status);
     }
 
     public function moveTask(int $taskId, string $status): void
@@ -112,7 +130,8 @@ class Board extends Component
         $task->delete();
 
         if ($this->taskId === $task->id) {
-            $this->create();
+            $this->showForm = false;
+            $this->resetForm();
         }
     }
 
