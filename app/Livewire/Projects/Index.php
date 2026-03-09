@@ -17,6 +17,8 @@ class Index extends Component
     public ?string $description = '';
     public $logo = null;
 
+    public bool $showForm = false;
+
     protected function rules(): array
     {
         return [
@@ -28,8 +30,15 @@ class Index extends Component
 
     public function mount(): void
     {
-
         abort_unless(Auth::check(), 403);
+    }
+
+    protected function resetForm(): void
+    {
+        $this->projectId = null;
+        $this->name = '';
+        $this->description = '';
+        $this->logo = null;
     }
 
     public function getProjectsProperty()
@@ -42,7 +51,8 @@ class Index extends Component
 
     public function create(): void
     {
-        $this->reset(['projectId', 'name', 'description', 'logo']);
+        $this->resetForm();
+        $this->showForm = true;
     }
 
     public function edit(Project $project): void
@@ -53,6 +63,14 @@ class Index extends Component
         $this->name = $project->name;
         $this->description = $project->description;
         $this->logo = null;
+
+        $this->showForm = true;
+    }
+
+    public function cancel(): void
+    {
+        $this->showForm = false;
+        $this->resetForm();
     }
 
     public function save(): void
@@ -83,7 +101,8 @@ class Index extends Component
 
         $this->dispatch('project-saved');
 
-        $this->create();
+        $this->showForm = false;
+        $this->resetForm();
     }
 
     public function delete(Project $project): void
@@ -97,7 +116,8 @@ class Index extends Component
         $project->delete();
 
         if ($this->projectId === $project->id) {
-            $this->create();
+            $this->showForm = false;
+            $this->resetForm();
         }
     }
 
