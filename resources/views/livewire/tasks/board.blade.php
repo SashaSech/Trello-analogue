@@ -1,7 +1,17 @@
 <section class="w-full" x-data="{}">
-    <flux:heading size="xl" class="mb-2">
-        Task board: {{ $project->name }}
-    </flux:heading>
+    <div class="flex items-center justify-between mb-2">
+        <flux:heading size="xl">
+            Task board: {{ $project->name }}
+        </flux:heading>
+
+        <flux:button
+            variant="primary"
+            size="sm"
+            wire:click="create"
+        >
+            Add Task
+        </flux:button>
+    </div>
 
     <div class="grid gap-4 md:grid-cols-3">
         @foreach ($statuses as $code => $label)
@@ -76,58 +86,66 @@
         @endforeach
     </div>
 
-    <div class="mt-6">
-        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg p-4 space-y-4">
-            <div>
-                <flux:heading size="md">
-                    {{ $taskId ? 'Edit task' : 'New task' }}
-                </flux:heading>
-            </div>
+    @if ($showForm)
+        <div class="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
+            <div class="w-full max-w-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg p-4 space-y-4 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <flux:heading size="md">
+                        {{ $taskId ? 'Edit task' : 'New task' }}
+                    </flux:heading>
 
-            <form wire:submit.prevent="save" class="space-y-4">
-                <flux:input
-                    wire:model="title"
-                    label="Title"
-                    required
-                />
+                    <button
+                        type="button"
+                        class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
+                        wire:click="cancel"
+                    >
+                        ✕
+                    </button>
+                </div>
 
-                <flux:textarea
-                    wire:model="description"
-                    label="Description"
-                    rows="4"
-                />
+                <form wire:submit.prevent="save" class="space-y-4">
+                    <flux:input
+                        wire:model="title"
+                        label="Title"
+                        required
+                    />
 
-                <flux:select
-                    wire:model="user_id"
-                    label="Assignee"
-                >
-                    <option value="">Unassigned</option>
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </flux:select>
+                    <flux:textarea
+                        wire:model="description"
+                        label="Description"
+                        rows="4"
+                    />
 
-                <flux:select
-                    wire:model="status"
-                    label="Status"
-                >
-                    @foreach ($statuses as $code => $label)
-                        <option value="{{ $code }}">{{ $label }}</option>
-                    @endforeach
-                </flux:select>
+                    <flux:select
+                        wire:model="user_id"
+                        label="Assignee"
+                    >
+                        <option value="">Unassigned</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </flux:select>
 
-                <div class="flex justify-end gap-2">
-                    @if ($taskId)
-                        <flux:button type="button" variant="ghost" wire:click="create()">
+                    <flux:select
+                        wire:model="status"
+                        label="Status"
+                    >
+                        @foreach ($statuses as $code => $label)
+                            <option value="{{ $code }}">{{ $label }}</option>
+                        @endforeach
+                    </flux:select>
+
+                    <div class="flex justify-end gap-2">
+                        <flux:button type="button" variant="ghost" wire:click="cancel">
                             Cancel
                         </flux:button>
-                    @endif
 
-                    <flux:button type="submit" variant="primary">
-                        Save
-                    </flux:button>
-                </div>
-            </form>
+                        <flux:button type="submit" variant="primary">
+                            Save
+                        </flux:button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    @endif
 </section>
