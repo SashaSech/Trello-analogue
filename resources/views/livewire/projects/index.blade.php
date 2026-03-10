@@ -16,7 +16,11 @@
         <div class="space-y-3">
             @forelse ($projects as $project)
                 <div class="flex items-center justify-between p-3 border rounded-md dark:border-zinc-700">
-                    <div class="flex items-center gap-3">
+                    <a
+                        href="{{ route('projects.board', $project) }}"
+                        wire:navigate
+                        class="flex items-center gap-3"
+                    >
                         @if ($project->logo_path)
                             <img
                                 src="{{ asset('storage/' . $project->logo_path) }}"
@@ -39,18 +43,9 @@
                                 </div>
                             @endif
                         </div>
-                    </div>
+                    </a>
 
                     <div class="flex items-center gap-2">
-                        <flux:button
-                            size="xs"
-                            variant="ghost"
-                            :href="route('projects.board', $project)"
-                            wire:navigate
-                        >
-                            Board
-                        </flux:button>
-
                         <flux:button
                             size="xs"
                             variant="ghost"
