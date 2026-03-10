@@ -1,10 +1,18 @@
 <section class="w-full">
-    <flux:heading size="xl" class="mb-4">
-        My projects
-    </flux:heading>
+    <div class="flex items-center justify-between mb-4">
+        <flux:heading size="xl">
+            My projects
+        </flux:heading>
 
-    <div class="grid gap-6 lg:grid-cols-2">
-        {{-- List of projects --}}
+        <flux:button
+            variant="primary"
+            size="sm"
+            wire:click="create"
+        >
+            Add project
+        </flux:button>
+    </div>
+
         <div class="space-y-3">
             @forelse ($projects as $project)
                 <div class="flex items-center justify-between p-3 border rounded-md dark:border-zinc-700">
@@ -68,13 +76,21 @@
             @endforelse
         </div>
 
-        {{-- Project form --}}
-        <div>
-            <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg p-4 space-y-4">
-                <div class="mb-2">
+    @if ($showForm)
+        <div class="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
+            <div class="w-full max-w-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg p-4 space-y-4 shadow-lg">
+                <div class="flex items-center justify-between">
                     <flux:heading size="md">
                         {{ $projectId ? 'Edit project' : 'New project' }}
                     </flux:heading>
+
+                    <button
+                        type="button"
+                        class="text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
+                        wire:click="cancel"
+                    >
+                        ✕
+                    </button>
                 </div>
 
                 <form wire:submit.prevent="save" class="space-y-4">
@@ -91,18 +107,16 @@
                     />
 
                     <flux:input
-                    wire:model="logo"
-                    type="file"
-                    label="Logo"
-                    accept="image/*"
+                        wire:model="logo"
+                        type="file"
+                        label="Logo"
+                        accept="image/*"
                     />
 
                     <div class="flex justify-end gap-2">
-                        @if ($projectId)
-                            <flux:button type="button" variant="ghost" wire:click="create">
-                                Cancel
-                            </flux:button>
-                        @endif
+                        <flux:button type="button" variant="ghost" wire:click="cancel">
+                            Cancel
+                        </flux:button>
 
                         <flux:button type="submit" variant="primary">
                             Save
@@ -111,5 +125,5 @@
                 </form>
             </div>
         </div>
-    </div>
+    @endif
 </section>
