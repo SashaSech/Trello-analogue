@@ -3,14 +3,25 @@
         <flux:heading size="xl">
             Task board: {{ $project->name }}
         </flux:heading>
-
-        <flux:button
-            variant="primary"
-            size="sm"
-            wire:click="create"
-        >
-            Add Task
-        </flux:button>
+    
+        <div class="flex items-center gap-2">
+            <flux:button
+                variant="outline"
+                size="sm"
+                :href="route('projects.index')"
+                wire:navigate
+            >
+                Back to projects
+            </flux:button>
+    
+            <flux:button
+                variant="primary"
+                size="sm"
+                wire:click="create"
+            >
+                Add task
+            </flux:button>
+        </div>
     </div>
 
     <div class="grid gap-4 md:grid-cols-3">
