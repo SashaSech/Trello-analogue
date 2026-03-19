@@ -22,7 +22,7 @@
             <!-- Email Address -->
             <flux:input
                 name="email"
-                :label="__('Email address')"
+                :label="__('Email')"
                 :value="old('email')"
                 type="email"
                 required
