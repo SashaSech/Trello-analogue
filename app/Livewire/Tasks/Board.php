@@ -2,29 +2,31 @@
 
 namespace App\Livewire\Tasks;
 
+use App\Enums\TaskStatus;
 use App\Models\Project;
 use App\Models\Task;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Board extends Component
 {
     public Project $project;
-
+    public array $statuses = [];
+    
     public ?int $taskId = null;
     public string $title = '';
     public ?string $description = '';
-    public string $status = 'todo';
+    public ?string $status = null;
     public ?int $user_id = null;
-
-    public array $statuses = [];
 
     public bool $showForm = false;
 
     public function mount(Project $project): void
     {
         $this->project = $project;
-        $this->statuses = Task::STATUSES;
+        $this->statuses = collect(TaskStatus::cases())->mapWithKeys(function ($status) {
+            return [$status->value => $status->label()];
+        })->toArray();
     }
 
     protected function rules(): array
@@ -32,7 +34,7 @@ class Board extends Component
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'status' => ['required', 'in:' . implode(',', array_keys(Task::STATUSES))],
+            'status' => ['required', 'in:' . implode(',', array_map(fn($case) => $case->value, TaskStatus::cases()))],
             'user_id' => ['nullable', 'exists:users,id'],
         ];
     }
