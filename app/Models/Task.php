@@ -2,18 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\TaskStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
     use HasFactory;
-
-    public const STATUSES = [
-        'todo' => 'To do',
-        'in_progress' => 'In progress',
-        'done' => 'Done',
-    ];
 
     protected $fillable = [
         'project_id',
@@ -24,12 +20,19 @@ class Task extends Model
         'position',
     ];
 
-    public function project()
+    protected function casts(): array
+    {
+        return [
+            'status' => TaskStatus::class,
+        ];
+    }
+
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
