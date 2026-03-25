@@ -17,7 +17,7 @@ class Board extends Component
     public ?int $taskId = null;
     public string $title = '';
     public ?string $description = '';
-    public ?string $status = null;
+    public mixed $status = null;
     public ?int $user_id = null;
 
     public bool $showForm = false;
@@ -69,11 +69,11 @@ class Board extends Component
     public function edit(Task $task): void
     {
         $this->authorizeTask($task);
-
+        
         $this->taskId = $task->id;
         $this->title = $task->title;
         $this->description = $task->description;
-        $this->status = $task->status;
+        $this->status = $task->status->value;
         $this->user_id = $task->user_id;
         $this->showForm = true;
     }
